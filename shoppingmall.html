@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+	<title>歡迎使用Yan's DBMS</title>
+	<meta content="text/html"; charset="UTF-8" http-equiv="content-type">
+	<link rel="stylesheet" type="text/css" href="style.css" />	
+	</head>	
+	
+    <body style="background-image:url('img/1.jpg'); background-position: top right; background-repeat: no-repeat; background-size: cover;">
+		<div align="center">
+			<p>
+				<input id="create" value="create" type="button">
+				<input id="insert" value="insert" type="button">
+				<input id="select" value="select" type="button">
+				<input id="delete" value="delete" type="button">
+			</p>
+		</div>
+        <div id="result" align="center"></div>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            var inputs = document.getElementsByTagName("input");
+            console.log("inputs: ", inputs);
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].addEventListener("click", doClick);
+            }
+
+            function doClick(event) {
+                doAjax(event.target.id);
+            }
+
+            function doAjax(request) {
+                console.log("ajax");
+                $.ajax({
+                    type: "POST",
+                    url: "./shoppingmall.php",
+                    data: {
+                        request: request
+                    },
+                    success: showResult,
+                    error: onError
+                });
+            }
+
+            function showResult(data) {
+                console.log("data:", data);
+                document.querySelector("#result").innerHTML = data;
+            }
+
+            function onError(error) {
+                console.log("error: ", error);
+            }
+
+        </script>
+    </body>
+</html>

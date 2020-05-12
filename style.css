@@ -1,0 +1,84 @@
+	body {
+		background-image: url('img/background1.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		font-family:Microsoft JhengHei; 
+	}
+
+	input{
+		padding:5px 15px; border:2px black solid;
+		cursor:pointer;
+		font-family:Microsoft JhengHei; 
+		-webkit-border-radius: 5px;
+		border-radius: 5px; 
+	}
+	
+	input[type=text]:focus {
+	  background-color: lightblue;
+	}
+	
+	input[type=password]:focus { /*點選password那個空格會是紅底*/
+	  background-color: #FF7575;
+	}	
+	
+	input[type=button]:hover { 
+	  background-color: #008CBA;
+	}		
+	
+	input[type=submit]:hover { 
+	  background-color: #008CBA;
+	}		
+	
+	.button{
+	  background-color: #008CBA; /* 藍色 */
+	  border: none;
+	  font-family:Microsoft JhengHei; 
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;		
+	}
+	
+	.button:hover {
+	   background: none;
+	   background-color: #555555;
+	   font-family:Microsoft JhengHei; 
+	   box-shadow: 0px 0px 8px 2px #AAAAAA;
+	   color: #FFFFFF;
+	}	
+	
+	.input_div{ /*是給index.html的輸入格子那塊的div用的*/
+		background-color:rgba(0, 0, 0, 0.6); 
+		color:#FFFFFF; 
+		font-family:Microsoft JhengHei; 
+		border-radius:15px; 
+		text-align:center; 
+		height:23%; 
+		width:30%; 
+		position:absolute; 
+		left:35%; 
+		top:65% 
+	}	
+	
+	.input_change_div{ /*是給index.html的輸入格子那塊的div"跳轉時"用的*/
+		background-color:rgba(0, 0, 0, 0.6); 
+		color:#FFFFFF; 
+		font-family:Microsoft JhengHei; 
+		border-radius:15px; 
+		text-align:center; 
+		line-height:130px;
+		height:23%; 
+		width:30%; 
+		position:absolute; 
+		left:35%; 
+		top:65%
+	}		
+	
+	.font_JhengHei{ /*微軟字體*/
+		font-family:Microsoft JhengHei; 
+	}		
+	
+	
+	
