@@ -17,7 +17,7 @@
 	  background-color: lightblue;
 	}
 	
-	input[type=password]:focus { /*點選password那個空格會是紅底*/
+	input[type=password]:focus { /*password input bg is red*/
 	  background-color: #FF7575;
 	}	
 	
@@ -30,7 +30,7 @@
 	}		
 	
 	.button{
-	  background-color: #008CBA; /* 藍色 */
+	  background-color: #008CBA; /* blue */
 	  border: none;
 	  font-family:Microsoft JhengHei; 
 	  color: white;
@@ -49,7 +49,7 @@
 	   color: #FFFFFF;
 	}	
 	
-	.input_div{ /*是給index.html的輸入格子那塊的div用的*/
+	.input_div{ /*for div in index.html*/
 		background-color:rgba(0, 0, 0, 0.6); 
 		color:#FFFFFF; 
 		font-family:Microsoft JhengHei; 
@@ -62,7 +62,7 @@
 		top:65% 
 	}	
 	
-	.input_change_div{ /*是給index.html的輸入格子那塊的div"跳轉時"用的*/
+	.input_change_div{ /*for div in index.html when page jumping*/
 		background-color:rgba(0, 0, 0, 0.6); 
 		color:#FFFFFF; 
 		font-family:Microsoft JhengHei; 
@@ -76,9 +76,51 @@
 		top:65%
 	}		
 	
-	.font_JhengHei{ /*微軟字體*/
+	.font_JhengHei{ /*font*/
 		font-family:Microsoft JhengHei; 
 	}		
 	
+
+	/*table style start*/ 
+	table { 
+	  font-family: Microsoft JhengHei; 
+	  font-size:16px; 
+	  border:0px solid #000;
+	  text-align:center;
+	  border-collapse:collapse;
+	} 
+	th, td {
+	  padding: 15px;
+	  text-align: left;
+	}	
 	
-	
+	tr:nth-child(odd) {
+		background-color: #FAFAFA;
+	}	
+	tr:nth-child(even) { /*two color exchanges*/
+		background-color: #add8e6;
+	}
+	tr:nth-child(1){
+		background-color:#69C;
+	}
+	/*table style end*/		
+	.result_div {	/*for Result div*/
+		border-radius: 30px;	
+		background-color: hsla(120, 100%, 20%, 0.4);
+		overflow: auto;
+		height: 500px;
+	}	
+
+	::-webkit-scrollbar { /*for*/
+	width: 15px;
+	}
+	::-webkit-scrollbar-track {
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	margin:80px 0 5px 0;
+	}
+	::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	background: rgb(219,219,219);
+	}
