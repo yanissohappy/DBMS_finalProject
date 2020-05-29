@@ -1,16 +1,28 @@
 <!doctype html>
 <html>
     <head>
-	<title>歡迎使用Yan's DBMS</title>
+	<title>2020 漫博會參展資料庫</title>
 	<meta content="text/html"; charset="UTF-8" http-equiv="content-type">
 	<link rel="stylesheet" type="text/css" href="style.css" charset="utf-8">	
 	</head>	
 
         <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>
+			imgSrc=new Array()
+			imgSrc[0]="img/0.jpg"
+			imgSrc[1]="img/1.jpg"
+			imgSrc[2]="img/2.jpg"
+			imgSrc[3]="img/3.jpg"
+			imgSrc[4]="img/4.jpg"
+			imgSrc[5]="img/5.jpg"
+			imgSrc[5]="img/6.jpg"
+			
 			window.onload = function() { // initially, hide the div for later display
+					bg_num = Math.floor(Math.random() * 6);					
+					document.body.style.backgroundImage = "url('"+imgSrc[bg_num] +"')"; // change bg
 					document.getElementById('SQL_result').style.display = 'none';
 					document.getElementById('query_result').style.display = 'none';
+					document.getElementById('query_option').style.display = 'none';
 					document.getElementById('upload').style.display = 'none';
 			};
 		
@@ -18,13 +30,15 @@
 				document.querySelector("#SQL_result").innerHTML = "";
 				document.querySelector("#query_result").innerHTML = "";
 				document.getElementById('SQL_result').style.display = 'none';
-				document.getElementById('query_result').style.display = 'none';				
+				document.getElementById('query_result').style.display = 'none';		
+				document.getElementById('query_option').style.display = 'none';
 				var op_value = document.getElementById('Options').value;
 				
 				if(op_value == "SQL") {
 					document.getElementById('upload').style.display = 'block';
 				}else if(op_value == "BUTTON"){
 					document.getElementById('upload').style.display = 'none';
+					document.getElementById('query_option').style.display = 'block';
 				}else{
 					document.getElementById('upload').style.display = 'none';
 				}
@@ -71,28 +85,57 @@
             function onError(error) {
                 console.log("error: ", error);
             }
-			
+						
         </script>
 	
-    <body style="background-image:url('img/background1.jpg'); background-position: top right; background-repeat: no-repeat; background-size: cover; background-attachment:fixed;">
+    <body style="background-position: top right; background-repeat: no-repeat; background-size: cover; background-attachment:fixed;">
 		<div align="center">	
 			<p>
-				<form>
-					<select id="Options" onchange="return optionChange();">
-					<option value="HIDE">----請選擇使用模式----</option>
-					<option value="SQL" >SQL指令輸入</option>
-					<option value="BUTTON">QUERY查詢</option>
+				<div>
+					<select class="select_css" id="Options" onchange="return optionChange();">
+						<option value="HIDE">----請選擇使用模式----</option>
+						<option value="SQL" >SQL指令輸入</option>
+						<option value="BUTTON">BUTTON查詢</option>
 					</select>
-				</form>				
-				
-				<form id="upload" method="POST" onsubmit="return submitForm();"> 
-					<input id="inputSQL" type="text" name="inputSQL" style="width:500px; height:50px;"> <!--專門用來輸入完整SQL語法的格子-->
-					<input type="submit" name="input" value="輸入">
-				</form>
+				</div>				
+				<br>
+				<div>
+					<form id="upload" method="POST" onsubmit="return submitForm();"> 
+						<input id="inputSQL" type="text" name="inputSQL" style="width:500px; height:50px; font-size: 18px;"> <!--專門用來輸入完整SQL語法的格子-->
+						<input type="submit" name="input" value="送出">
+					</form>
+				</div>
 			</p>
 		</div>
 	  
         <div class="result_div" id="SQL_result" align="center"></div> <!--SQL指令查詢結果要呈現在這裡-->
+		
+		<div id="query_option" align="center"> <!--SQL指令查詢"選項"要呈現在這裡-->
+				<table border="1" id="option_table">
+					<tr>
+						<td>查詢方式</td>
+						<td>
+							<select class="select_css" id="Query_Options">
+								<option value="SELECT" >SELECT</option>
+								<option value="DELETE">DELETE</option>
+								<option value="INSERT" >INSERT</option>
+								<option value="UPDATE">UPDATE</option>
+							</select>
+						</td>
+					</tr>					
+					<tr>
+						<td>這裡是第二行的第一個欄位</td>
+						<td>這裡是第二行的第二個欄位</td>
+					</tr>
+					<tr>
+						<td>這裡是第三行的第一個欄位</td>
+						<td>這裡是第三行的第二個欄位</td>
+					</tr>					
+				</table>
+				
+		</div> 
+		
 		<div class="result_div" id="query_result" align="center"></div> <!--QUERY指令查詢結果要呈現在這裡-->
+		<span class="fix_logout"><a href="index.html"><img src="img/logout.png" width="30%" height="30%"></a></span>
     </body>
 </html>

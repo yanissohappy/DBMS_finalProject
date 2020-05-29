@@ -104,14 +104,22 @@
 		background-color:#69C;
 	}
 	/*table style end*/		
+	
 	.result_div {	/*for Result div*/
 		border-radius: 30px;	
 		background-color: hsla(120, 100%, 20%, 0.4);
 		overflow: auto;
 		height: 500px;
 	}	
-
-	::-webkit-scrollbar { /*for*/
+	
+	.option_div {	/*for Result div*/
+		border-radius: 30px;	
+		background-color: hsla(50, 80%, 20%, 0.4);
+		overflow: auto;
+		height: 300px;
+	}		
+	
+	::-webkit-scrollbar { 
 	width: 15px;
 	}
 	::-webkit-scrollbar-track {
@@ -124,3 +132,50 @@
 	border-radius: 4px;
 	background: rgb(219,219,219);
 	}
+
+	.select_css {
+	   font-size: 22px;
+	   font-family:Microsoft JhengHei; 
+	   text-align:center;
+	   text-align-last:center;
+	}		
+
+	#option_table {  /*query options table*/
+	  font-family: Microsoft JhengHei; 
+	  font-size:16px; 
+	  border:0px solid #000;
+	  text-align:center;
+	  border-collapse:collapse;
+	  text-align:center;
+	} 	
+	
+	#option_table th, td {
+	  padding: 15px;
+	  text-align: left;
+	}	
+	
+	#option_table tr:nth-child(odd) {
+		background-color: #FFF4C1;
+	}	
+	#option_table tr:nth-child(even) { /*two color exchanges*/
+		background-color: #FFFCEC;
+	}
+	#option_table tr:nth-child(1){
+		background-color:#FFE66F;
+	}	
+	
+	.fix_logout {
+		position:absolute;
+		bottom: 0px;
+	}
+	
+	.span_show { /*yellow*/
+		font-size:20px;
+		background-color:hsla(58, 100%, 50%, 0.6);
+	}
+	
+	.span_show_blue { /*blue bg font yellow*/
+		font-size:20px;
+		background-color:hsla(226, 100%, 50%, 0.61);
+		color: yellow;
+	}	

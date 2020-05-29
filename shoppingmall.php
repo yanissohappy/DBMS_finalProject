@@ -13,36 +13,44 @@ $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "<h3>Connected successfully</h3>";
+echo "<span class=\"span_show_blue\">" . "成功連結資料庫！" . "</span><br>";
 
-echo "您輸入的指令 " . @$_POST['inputSQL'];
-$query = $_POST['inputSQL'];
 
-echo "<table border='1'>
-      <tr>
-        <th>編號</th>
-		<th>姓</th>
-        <th>名</th>
-        <th>電子信箱</th>
-      </tr>";
-$result = $conn->query($query);
-if ($result->num_rows > 0) {
-	// output data of each row 並且印出雙色相間的表格
-	while($row = $result->fetch_assoc())
-	{
-		echo "<tr>";
-		echo "<td>" . $row['id'] . "</td>";
-		echo "<td>" . $row['lastname'] . "</td>";
-		echo "<td>" . $row['firstname'] . "</td>";
-		echo "<td>" . $row['email'] . "</td>";
+// SQL 輸入結果
+if(!empty($_POST['inputSQL'])){
+	echo "<span class=\"span_show\"> 您輸入的指令 " . @$_POST['inputSQL'] . "</span>";
+	$query = $_POST['inputSQL'];
+
+	try{
+		$result = $conn->query($query);	
+		echo "<span class=\"span_show\">" . "<br> 搜尋結果為 ". $result->num_rows. " 筆資料" . "</span>";
+		echo "<table border='1'> 
+			  <tr>";	
+		$j = 0;	  
+		while($mysql_query_fields = mysqli_fetch_field($result)){ // 取得field name
+			$mysql_fields[$j] = $mysql_query_fields->name;
+			echo "<th>". $mysql_fields[$j]. "</th>";		
+			$j = $j + 1;
+		}
 		echo "</tr>";
-	}	
-	
-	while($row = $result->fetch_assoc()) {
-		echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+		
+		if ($result->num_rows > 0){
+			while($row = $result->fetch_row()){
+				echo "<tr>";
+				$i = 0;
+				for(;$i < mysqli_num_fields($result); $i = $i + 1){
+					echo "<td>" . $row[$i] . "</td>";
+				}
+				echo "</tr>";
+			}	
+		} else {
+			echo "0 results";
+		}
 	}
-} else {
-	echo "0 results";
+	catch(Exception $e){
+	  echo 'something wrong!';
+
+	}	  
 }
 
 /*
