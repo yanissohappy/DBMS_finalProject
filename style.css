@@ -166,7 +166,7 @@
 	
 	.fix_logout {
 		position:absolute;
-		bottom: 0px;
+		top: 0px;
 	}
 	
 	.span_show { /*yellow*/

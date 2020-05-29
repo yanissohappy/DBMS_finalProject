@@ -24,36 +24,102 @@
 					document.getElementById('query_result').style.display = 'none';
 					document.getElementById('query_option').style.display = 'none';
 					document.getElementById('upload').style.display = 'none';
+					
+					hide_button_part();				
 			};
+			
+			function hide_button_part(){ //隱藏掉BUTTON那邊所有的div
+					document.getElementById('D_HIDE').style.display = 'none';				
+					document.getElementById('D_SELECT').style.display = 'none';
+					document.getElementById('D_DELETE').style.display = 'none';				
+					document.getElementById('D_INSERT').style.display = 'none';
+					document.getElementById('D_UPDATE').style.display = 'none';				
+					document.getElementById('D_IN').style.display = 'none';				
+					document.getElementById('D_NOT_IN').style.display = 'none';				
+					document.getElementById('D_EXISTS').style.display = 'none';
+					document.getElementById('D_NOT_EXISTS').style.display = 'none';				
+					document.getElementById('D_COUNT').style.display = 'none';
+					document.getElementById('D_SUM').style.display = 'none';				
+					document.getElementById('D_MAX').style.display = 'none';					
+					document.getElementById('D_MIN').style.display = 'none';	
+					document.getElementById('D_AVG').style.display = 'none';	
+					document.getElementById('D_HAVING').style.display = 'none';				
+			}
+			
+			function button_optionChange() {
+				hide_button_part();
+				$("input[name='text1']").val(""); //每選一個東西的時候原輸入清空
+				$("input[name='text2']").val("");
+				$("input[name='text3']").val("");
+				$("input[name='text4']").val("");
+				$("input[name='text5']").val("");
+				
+				var Query_op_value = document.getElementById('Query_Options').value;
+				
+				if(Query_op_value == "HIDE") { // 選擇大方向的，SQL或是按鈕的
+					document.getElementById('HIDE').style.display = 'block';
+				}else if(Query_op_value == "SELECT"){
+					document.getElementById('D_SELECT').style.display = 'block';
+				}else if(Query_op_value == "DELETE"){
+					document.getElementById('D_DELETE').style.display = 'block';
+				}else if(Query_op_value == "INSERT"){
+					document.getElementById('D_INSERT').style.display = 'block';
+				}else if(Query_op_value == "UPDATE"){
+					document.getElementById('D_UPDATE').style.display = 'block';
+				}else if(Query_op_value == "IN"){
+					document.getElementById('D_IN').style.display = 'block';
+				}else if(Query_op_value == "NOT_IN"){
+					document.getElementById('D_NOT_IN').style.display = 'block';
+				}else if(Query_op_value == "EXISTS"){
+					document.getElementById('D_EXISTS').style.display = 'block';
+				}else if(Query_op_value == "NOT_EXISTS"){
+					document.getElementById('D_NOT_EXISTS').style.display = 'block';
+				}else if(Query_op_value == "COUNT"){
+					document.getElementById('D_COUNT').style.display = 'block';
+				}else if(Query_op_value == "SUM"){
+					document.getElementById('D_SUM').style.display = 'block';
+				}else if(Query_op_value == "MAX"){
+					document.getElementById('D_MAX').style.display = 'block';
+				}else if(Query_op_value == "MIN"){
+					document.getElementById('D_MIN').style.display = 'block';
+				}else if(Query_op_value == "AVG"){
+					document.getElementById('D_AVG').style.display = 'block';
+				}else{
+					document.getElementById('D_HAVING').style.display = 'block';
+				}							
+			}
 		
 			function optionChange() { // some of divs hide when option changes
+				$("#inputSQL").val("");
 				document.querySelector("#SQL_result").innerHTML = "";
 				document.querySelector("#query_result").innerHTML = "";
 				document.getElementById('SQL_result').style.display = 'none';
-				document.getElementById('query_result').style.display = 'none';		
-				document.getElementById('query_option').style.display = 'none';
+				document.getElementById('query_result').style.display = 'none';	
+				document.getElementById('query_option').style.display = 'none';	
+				
 				var op_value = document.getElementById('Options').value;
 				
-				if(op_value == "SQL") {
+				if(op_value == "SQL") { // 選擇大方向的，SQL或是按鈕的
 					document.getElementById('upload').style.display = 'block';
 				}else if(op_value == "BUTTON"){
 					document.getElementById('upload').style.display = 'none';
 					document.getElementById('query_option').style.display = 'block';
 				}else{
 					document.getElementById('upload').style.display = 'none';
-				}
+				}				
+
 			}
 		
 			function submitForm() { 
-				var content = document.getElementById("upload").inputSQL.value;
-				document.querySelector("#SQL_result").innerHTML = content;
-				document.querySelector("#query_result").innerHTML = content;
+				//var content = document.getElementById("upload").inputSQL.value;
+				//document.querySelector("#SQL_result").innerHTML = content;
+				//document.querySelector("#query_result").innerHTML = content;
 			
 				var form = document.getElementById('upload'),
 					formData = new FormData(form);
 				$.ajax({
                     type: "POST",
-                    url: "./shoppingmall.php",
+                    url: "./sqlquery.php",
 					data:formData,
 					processData:false,
 					contentType:false,
@@ -63,9 +129,9 @@
 					success: showResult,
 					error: onError
 				});
-
+				
 				return false;
-			}				
+			}						
 			
             function showResult(data) {
                 console.log("data:", data);
@@ -75,7 +141,7 @@
 					document.getElementById('SQL_result').style.display = 'block';
 					document.getElementById('query_result').style.display = 'none';
 					document.querySelector("#SQL_result").innerHTML = data;
-				}else {
+				}else { //若為button
 					document.getElementById('query_result').style.display = 'block';
 					document.getElementById('SQL_result').style.display = 'none';
 					document.querySelector("#query_result").innerHTML = data;
@@ -85,7 +151,18 @@
             function onError(error) {
                 console.log("error: ", error);
             }
-						
+
+			function insert() {
+				$.ajax({
+				type: "POST",//方法
+				url: "sqlquery.php" ,//表單接收url
+				processData:false,
+				data: $('#upload1').serialize(),
+				success: showResult,
+				error : onError
+				});
+			}
+			
         </script>
 	
     <body style="background-position: top right; background-repeat: no-repeat; background-size: cover; background-attachment:fixed;">
@@ -115,26 +192,103 @@
 					<tr>
 						<td>查詢方式</td>
 						<td>
-							<select class="select_css" id="Query_Options">
-								<option value="SELECT" >SELECT</option>
+							<select class="select_css" id="Query_Options" onchange="return button_optionChange();">
+								<option value="HIDE">----請選擇----</option>
+								<option value="SELECT" >SELECT-FROM-WHERE</option>
 								<option value="DELETE">DELETE</option>
 								<option value="INSERT" >INSERT</option>
 								<option value="UPDATE">UPDATE</option>
+								<option value="IN" >IN</option>
+								<option value="NOT_IN">NOT IN</option>
+								<option value="EXISTS" >EXISTS</option>
+								<option value="NOT_EXISTS">NOT EXISTS</option>	
+								<option value="COUNT" >COUNT</option>
+								<option value="SUM">SUM</option>
+								<option value="MAX" >MAX</option>
+								<option value="MIN">MIN</option>		
+								<option value="AVG" >AVG</option>
+								<option value="HAVING">HAVING</option>							
 							</select>
 						</td>
-					</tr>					
+					</tr>							
 					<tr>
-						<td>這裡是第二行的第一個欄位</td>
-						<td>這裡是第二行的第二個欄位</td>
+						<td colspan="2">
+							<form id="upload1" method="POST" onsubmit="return false;" align="center">
+								<div id="D_HIDE"> </div>		
+								<div id="D_SELECT">
+										<input type="hidden" value="1"> 
+										SELECT <input type="text" name="text1"><br> 
+										FROM <input type="text" name="text2"><br> 
+										WHERE <input type="text" name="text3"><br>
+								</div>		
+								<div id="D_DELETE"> 
+										<input type="hidden" value="2"> 
+										DELETE FROM customer WHERE  <input type="text" name="text4"><br> 
+								</div>		
+								<div id="D_INSERT"> 
+										<input type="hidden" value="3"> 
+										INSERT INTO customer <input type="text" name="text5"><br>
+										VALUES <input type="text" name="text6"><br> 														
+								</div>		
+								<div id="D_UPDATE"> 
+										<input type="hidden" value="4"> 
+										UPDATE customers SET <input type="text" name="text7"><br> 
+										WHERE <input type="text" name="text8"><br>
+								</div>		
+								<div id="D_IN"> 
+										<input type="hidden" value="5"> 
+										SELECT * FROM customers WHERE customer_id IN <input type="text" name="text9"><br> 
+								</div>		
+								<div id="D_NOT_IN">
+										<input type="hidden" value="6"> 
+										SELECT * FROM customers WHERE customer_id NOT IN <input type="text" name="text10"><br> 
+								</div>		
+								<div id="D_EXISTS">
+										<input type="hidden" value="7"> 
+										SELECT <input type="text" name="text11"><br>
+										FROM customers WHERE EXISTS <input type="text" name="text12"><br> 
+								</div>		
+								<div id="D_NOT_EXISTS">
+										<input type="hidden" value="8"> 
+										SELECT <input type="text" name="text13"><br>
+										FROM customers WHERE NOT EXISTS <input type="text" name="text14"><br> 
+								</div>		
+								<div id="D_COUNT">
+										<input type="hidden" value="9"> 
+										SELECT COUNT <input type="text" name="text15"><br>  FROM merchandise
+								</div>		
+								<div id="D_SUM">
+										<input type="hidden" value="10"> 
+										SELECT SUM <input type="text" name="text16"><br>  FROM merchandise
+								</div>		
+								<div id="D_MAX">
+										<input type="hidden" value="11"> 
+										SELECT MAX <input type="text" name="text17"><br>  FROM merchandise
+								</div>		
+								<div id="D_MIN">
+										<input type="hidden" value="12"> 
+										SELECT MIN <input type="text" name="text18"><br>  FROM merchandise
+								</div>		
+								<div id="D_AVG">
+										<input type="hidden" value="13"> 
+										SELECT AVG <input type="text" name="text19"><br>  FROM merchandise
+								</div>		
+								<div id="D_HAVING">
+										<input type="hidden" value="14"> 
+										SELECT <input type="text" name="text20"><br> 
+										FROM <input type="text" name="text21"><br> 
+										WHERE <input type="text" name="text22"><br> 
+										GROUP BY <input type="text" name="text23"><br> 
+										HAVING <input type="text" name="text24"><br>
+								</div>	
+							<input type="submit" name="input" value="送出" onclick="insert()">
+							</form>	
+						</td>
 					</tr>
-					<tr>
-						<td>這裡是第三行的第一個欄位</td>
-						<td>這裡是第三行的第二個欄位</td>
-					</tr>					
 				</table>
 				
 		</div> 
-		
+		<br>
 		<div class="result_div" id="query_result" align="center"></div> <!--QUERY指令查詢結果要呈現在這裡-->
 		<span class="fix_logout"><a href="index.html"><img src="img/logout.png" width="30%" height="30%"></a></span>
     </body>
