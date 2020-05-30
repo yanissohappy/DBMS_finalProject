@@ -21,10 +21,53 @@ if(!empty($_POST['inputSQL'])){
 	$query = $_POST['inputSQL'];
 	$_POST['inputSQL'] = ""; //因為php會存這個值，而我是用這個值做判斷是否是做SQL還是BUTTON
 	
-	if(is_select($query) == 1){
-		show_result($conn,$query); //是SELECT的話，會列出結果。	
-	}else {
-		$result = $conn->query($query); //純query，不須列出結果
+	if(is_multiple_query($query) == 0){ //如果是單一SQL語句
+		if(is_select($query) == 1){
+			show_result($conn,$query); //是SELECT的話，會列出結果。	
+		}else {
+			$result = $conn->query($query); //純query，不須列出結果
+		}
+	}else{ //如果是multiple語句(只要至少兩條以上query就會用此處理)
+		if ($conn -> multi_query($query)) {
+		  do {
+			// Store first result set
+			if ($result = $conn -> store_result()) {
+				echo "<span class=\"span_show\">" . "<br> 搜尋結果為 ". $result->num_rows. " 筆資料" . "</span>";
+				echo "<table border='1'> 
+					  <tr>";	
+				$j = 0;	  
+				while($mysql_query_fields = mysqli_fetch_field($result)){ // 取得field name
+					$mysql_fields[$j] = $mysql_query_fields->name;
+					echo "<th>". $mysql_fields[$j]. "</th>";		
+					$j = $j + 1;
+				}
+				echo "</tr>";
+				
+				if ($result->num_rows > 0){
+					while($row = $result->fetch_row()){
+						echo "<tr>";
+						$i = 0;
+						for(;$i < mysqli_num_fields($result); $i = $i + 1){
+							echo "<td>" . $row[$i] . "</td>";
+						}
+						echo "</tr>";
+					}	
+				} else {
+					echo "0 results";
+				}
+				echo "</table>"; //這很重要!我一直忘了加，然後若有多重結果，一開始的table就會都塞在一起，de了兩小時的bug...(汗)				
+			  
+			 $result -> free_result();
+			}
+
+			if ($conn -> more_results()) { //若有多重結果，放上分隔線
+			  echo "<br><hr />";
+			}
+			 //Prepare next result set
+		  } while ($conn -> next_result());
+		}		
+		
+		
 	}
 }else{ //BUTTON 結果
 
@@ -89,6 +132,12 @@ function is_select($query){ // 要split，判斷是否是SELECT(1), UPDATE, DELE
 	else return 0;
 }
 
+function is_multiple_query($query){ // 要split，判斷是否是SELECT(1), UPDATE, DELETE, INSERT
+	$splitArray = explode (';', $query);
+	if((count($splitArray) > 1) && !empty($splitArray[1])) return 1; 
+	else return 0;
+}
+
 function show_result($conn,$query){ // query同時列出結果，只有SELECT的才可以正確顯示
 	try{
 		$result = $conn->query($query);	
@@ -115,6 +164,8 @@ function show_result($conn,$query){ // query同時列出結果，只有SELECT的
 		} else {
 			echo "0 results";
 		}
+		
+		echo "</table>";
 	}catch(Exception $e){
 	  echo 'something wrong!';
 	}	  	
