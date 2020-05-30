@@ -153,11 +153,20 @@
             }
 
 			function insert() {
+				var Query_op_value = document.getElementById('Query_Options').value;				
+				var data = {
+				  'tell_type' : Query_op_value
+				};
+				
+				data = $('#upload1').serialize() + '&' + $.param(data); //串接選項
+				console.log("判斷現在選項按到哪個:", Query_op_value);
+				console.log("data:", data);
+				
 				$.ajax({
-				type: "POST",//方法
-				url: "sqlquery.php" ,//表單接收url
+				type: "POST",
+				url: "sqlquery.php" ,
 				processData:false,
-				data: $('#upload1').serialize(),
+				data: data, 
 				success: showResult,
 				error : onError
 				});
@@ -192,7 +201,7 @@
 					<tr>
 						<td>查詢方式</td>
 						<td>
-							<select class="select_css" id="Query_Options" onchange="return button_optionChange();">
+							<select class="select_css" id="Query_Options" onchange="return button_optionChange();" name="Query_Options">
 								<option value="HIDE">----請選擇----</option>
 								<option value="SELECT" >SELECT-FROM-WHERE</option>
 								<option value="DELETE">DELETE</option>
@@ -214,72 +223,61 @@
 					<tr>
 						<td colspan="2">
 							<form id="upload1" method="POST" onsubmit="return false;" align="center">
+								請務必每個格子都要填入<br>
 								<div id="D_HIDE"> </div>		
 								<div id="D_SELECT">
-										<input type="hidden" value="1"> 
+										<!-- <input type="hidden" value="1"> --> 
 										SELECT <input type="text" name="text1"><br> 
 										FROM <input type="text" name="text2"><br> 
 										WHERE <input type="text" name="text3"><br>
 								</div>		
 								<div id="D_DELETE"> 
-										<input type="hidden" value="2"> 
 										DELETE FROM customer WHERE  <input type="text" name="text4"><br> 
 								</div>		
 								<div id="D_INSERT"> 
-										<input type="hidden" value="3"> 
 										INSERT INTO customer <input type="text" name="text5"><br>
 										VALUES <input type="text" name="text6"><br> 														
 								</div>		
 								<div id="D_UPDATE"> 
-										<input type="hidden" value="4"> 
 										UPDATE customers SET <input type="text" name="text7"><br> 
 										WHERE <input type="text" name="text8"><br>
 								</div>		
 								<div id="D_IN"> 
-										<input type="hidden" value="5"> 
-										SELECT * FROM customers WHERE customer_id IN <input type="text" name="text9"><br> 
+										SELECT * FROM customer WHERE customer_id > 3 IN (<input type="text" name="text9"><br>) 
 								</div>		
 								<div id="D_NOT_IN">
-										<input type="hidden" value="6"> 
-										SELECT * FROM customers WHERE customer_id NOT IN <input type="text" name="text10"><br> 
+										SELECT * FROM customer WHERE customer_id > 4 NOT IN (<input type="text" name="text10"><br>) 
 								</div>		
 								<div id="D_EXISTS">
-										<input type="hidden" value="7"> 
+										參考：SELECT * FROM customer WHERE EXISTS (SELECT * FROM customer WHERE 1) <br>
 										SELECT <input type="text" name="text11"><br>
-										FROM customers WHERE EXISTS <input type="text" name="text12"><br> 
+										FROM customer WHERE EXISTS (<input type="text" name="text12"><br>) 
 								</div>		
 								<div id="D_NOT_EXISTS">
-										<input type="hidden" value="8"> 
 										SELECT <input type="text" name="text13"><br>
-										FROM customers WHERE NOT EXISTS <input type="text" name="text14"><br> 
+										FROM customer WHERE NOT EXISTS (<input type="text" name="text14"><br>) 
 								</div>		
 								<div id="D_COUNT">
-										<input type="hidden" value="9"> 
-										SELECT COUNT <input type="text" name="text15"><br>  FROM merchandise
+										SELECT COUNT(<input type="text" name="text15"><br>)  FROM merchandise
 								</div>		
 								<div id="D_SUM">
-										<input type="hidden" value="10"> 
-										SELECT SUM <input type="text" name="text16"><br>  FROM merchandise
+										SELECT SUM(<input type="text" name="text16"><br>)  FROM merchandise
 								</div>		
 								<div id="D_MAX">
-										<input type="hidden" value="11"> 
-										SELECT MAX <input type="text" name="text17"><br>  FROM merchandise
+										SELECT MAX(<input type="text" name="text17"><br>)  FROM merchandise
 								</div>		
 								<div id="D_MIN">
-										<input type="hidden" value="12"> 
-										SELECT MIN <input type="text" name="text18"><br>  FROM merchandise
+										SELECT MIN(<input type="text" name="text18"><br>)  FROM merchandise
 								</div>		
 								<div id="D_AVG">
-										<input type="hidden" value="13"> 
-										SELECT AVG <input type="text" name="text19"><br>  FROM merchandise
+										SELECT AVG(<input type="text" name="text19"><br>)  FROM merchandise
 								</div>		
 								<div id="D_HAVING">
-										<input type="hidden" value="14"> 
+										如果被 SELECT 的只有函數欄， 那就不需要 GROUP BY 子句<br>
 										SELECT <input type="text" name="text20"><br> 
 										FROM <input type="text" name="text21"><br> 
-										WHERE <input type="text" name="text22"><br> 
-										GROUP BY <input type="text" name="text23"><br> 
-										HAVING <input type="text" name="text24"><br>
+										GROUP BY <input type="text" name="text22"><br> 
+										HAVING <input type="text" name="text23"><br>
 								</div>	
 							<input type="submit" name="input" value="送出" onclick="insert()">
 							</form>	
