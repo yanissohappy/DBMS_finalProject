@@ -53,6 +53,25 @@
 				$("input[name='text3']").val("");
 				$("input[name='text4']").val("");
 				$("input[name='text5']").val("");
+				$("input[name='text6']").val("");
+				$("input[name='text7']").val("");
+				$("input[name='text8']").val("");
+				$("input[name='text9']").val("");
+				$("input[name='text10']").val("");
+				$("input[name='text11']").val("");
+				$("input[name='text11']").val("");
+				$("input[name='text12']").val("");
+				$("input[name='text13']").val("");
+				$("input[name='text14']").val("");
+				$("input[name='text15']").val("");
+				$("input[name='text16']").val("");
+				$("input[name='text17']").val("");
+				$("input[name='text18']").val("");
+				$("input[name='text19']").val("");
+				$("input[name='text20']").val("");
+				$("input[name='text21']").val("");
+				$("input[name='text22']").val("");			
+				$("input[name='text23']").val("");			
 				
 				var Query_op_value = document.getElementById('Query_Options').value;
 				
@@ -223,12 +242,15 @@
 					<tr>
 						<td colspan="2">
 							<form id="upload1" method="POST" onsubmit="return false;" align="center">
+								❤♥❤貼心提醒❤♥❤<br>
 								1.請務必每個格子都要填入<br>
 								2.不像SQL輸入(INSERT,DELETE,UPDATE)，此處的BUTTON都會顯示結果<br>
+								3.要小心duplicate項，必要時請輸入distinct<br>
 								-------------------------------------------------------------------------------------<br>
 								<div id="D_HIDE"> </div>		
 								<div id="D_SELECT">
 										<!-- <input type="hidden" value="1"> --> 
+										參考：SELECT * FROM customer Where customer_id > 2<br>
 										SELECT <input type="text" name="text1"><br> 
 										FROM <input type="text" name="text2"><br> 
 										WHERE <input type="text" name="text3"><br>
@@ -238,48 +260,57 @@
 								</div>		
 								<div id="D_INSERT"> 
 										<!--INSERT INTO customer (customer_id , customer_name,customer_email,customer_address) VALUES (15,'栗花落香奈乎','Tsuyuri@gmail.com','高雄市前金區海港路15號')-->
-										參考:INSERT INTO customer (customer_id , customer_name,customer_email,customer_address) VALUES (15,'栗花落香奈乎','Tsuyuri@gmail.com','高雄市前金區海港路15號')<br>
+										參考：INSERT INTO customer (customer_id , customer_name,customer_email,customer_address) VALUES (15,'栗花落香奈乎','Tsuyuri@gmail.com','高雄市前金區海港路15號')<br>
 										INSERT INTO customer <input type="text" name="text5">
 										VALUES <input type="text" name="text6">														
 								</div>		
 								<div id="D_UPDATE"> 
 										<!--UPDATE customer SET customer_name = '真菰' WHERE customer_id = 15-->
-										參考:UPDATE customer SET customer_name = '真菰' WHERE customer_id = 15<br>
+										參考：UPDATE customer SET customer_name = '真菰' WHERE customer_id = 15<br>
 										UPDATE customers SET <input type="text" name="text7">
 										WHERE <input type="text" name="text8"><br>
 								</div>		
 								<div id="D_IN"> 
-										SELECT * FROM customer WHERE customer_id > 3 IN (<input type="text" name="text9">) 
+										參考：SELECT * FROM customer WHERE customer_name IN ('不死川實彌','甘露寺蜜璃')<br>
+										SELECT * FROM customer WHERE customer_name IN (<input type="text" name="text9">) 
 								</div>		
 								<div id="D_NOT_IN">
-										SELECT * FROM customer WHERE customer_id > 4 NOT IN (<input type="text" name="text10">) 
+										參考：SELECT * FROM customer WHERE customer_name NOT IN ('不死川實彌','甘露寺蜜璃')<br>
+										SELECT * FROM customer WHERE customer_name NOT IN (<input type="text" name="text10">) 
 								</div>		
 								<div id="D_EXISTS">
-										參考：SELECT * FROM customer WHERE EXISTS (SELECT * FROM customer WHERE 1) <br>
+										參考：SELECT * FROM customer WHERE EXISTS (SELECT * FROM merchandise,buy WHERE BUY.customer_id = CUSTOMER.customer_id and BUY.merchandise_id = MERCHANDISE.merchandise_id and merchandise_import_time = '2020-05-01')<br>
 										SELECT <input type="text" name="text11">
 										FROM customer WHERE EXISTS (<input type="text" name="text12">) 
 								</div>		
 								<div id="D_NOT_EXISTS">
+										參考：SELECT * FROM customer WHERE NOT EXISTS (SELECT * FROM merchandise,buy WHERE BUY.customer_id = CUSTOMER.customer_id and BUY.merchandise_id = MERCHANDISE.merchandise_id and merchandise_import_time = '2020-05-01')<br>
 										SELECT <input type="text" name="text13">
 										FROM customer WHERE NOT EXISTS (<input type="text" name="text14">) 
 								</div>		
 								<div id="D_COUNT">
+										參考：SELECT COUNT( distinct merchandise_import_time ) FROM merchandise<br>
 										SELECT COUNT(<input type="text" name="text15">) FROM merchandise
 								</div>		
 								<div id="D_SUM">
+										參考：SELECT SUM( merchandise_amount ) FROM merchandise<br>
 										SELECT SUM(<input type="text" name="text16">) FROM merchandise
 								</div>		
 								<div id="D_MAX">
+										參考：SELECT MAX( merchandise_amount ) FROM merchandise<br>
 										SELECT MAX(<input type="text" name="text17">) FROM merchandise
 								</div>		
 								<div id="D_MIN">
+										參考：SELECT MIN( merchandise_amount ) FROM merchandise<br>
 										SELECT MIN(<input type="text" name="text18">) FROM merchandise
 								</div>		
 								<div id="D_AVG">
+										參考：SELECT AVG( merchandise_amount ) FROM merchandise<br>
 										SELECT AVG(<input type="text" name="text19">) FROM merchandise
 								</div>		
 								<div id="D_HAVING">
-										(如果被 SELECT 的只有函數欄， 那就不需要 GROUP BY 子句)<br>
+										參考：SELECT merchandise_import_time ,merchandise_name, SUM(merchandise_amount) FROM merchandise GROUP BY merchandise_import_time HAVING SUM(merchandise_amount)< 50
+<br>
 										SELECT <input type="text" name="text20"><br> 
 										FROM <input type="text" name="text21"><br> 
 										GROUP BY <input type="text" name="text22"><br> 

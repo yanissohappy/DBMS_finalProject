@@ -53,7 +53,7 @@ if(!empty($_POST['inputSQL'])){
 						echo "</tr>";
 					}	
 				} else {
-					echo "0 results";
+					//echo "0 results";
 				}
 				echo "</table>"; //這很重要!我一直忘了加，然後若有多重結果，一開始的table就會都塞在一起，de了兩小時的bug...(汗)				
 			  
@@ -92,10 +92,10 @@ if(!empty($_POST['inputSQL'])){
 		$result = $conn->query($query);	// 先送出去
 		$query = "SELECT * FROM customer;";		
 	}else if($_POST['tell_type'] == "IN"){
-		$query = "SELECT * FROM customer WHERE customer_id > 3 IN (". $_POST['text9']." )";
+		$query = "SELECT * FROM customer WHERE customer_name IN (". $_POST['text9']." )";
 		echo "<span class=\"span_show\"> 您輸入的指令 " . $query . "</span>";
 	}else if($_POST['tell_type'] == "NOT_IN"){
-		$query = "SELECT * FROM customer WHERE customer_id > 4 NOT IN (". $_POST['text10']." )";
+		$query = "SELECT * FROM customer WHERE customer_name NOT IN (". $_POST['text10']." )";
 		echo "<span class=\"span_show\"> 您輸入的指令 " . $query . "</span>";
 	}else if($_POST['tell_type'] == "EXISTS"){
 		$query = "SELECT " . $_POST['text11'] . " FROM customer WHERE EXISTS (" . $_POST['text12']." )";
@@ -162,7 +162,7 @@ function show_result($conn,$query){ // query同時列出結果，只有SELECT的
 				echo "</tr>";
 			}	
 		} else {
-			echo "0 results";
+			//echo "0 results";
 		}
 		
 		echo "</table>";
