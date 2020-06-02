@@ -11,14 +11,12 @@
 			imgSrc=new Array()
 			imgSrc[0]="img/0.jpg"
 			imgSrc[1]="img/1.jpg"
-			imgSrc[2]="img/2.jpg"
-			imgSrc[3]="img/3.jpg"
-			imgSrc[4]="img/4.jpg"
-			imgSrc[5]="img/5.jpg"
-			imgSrc[5]="img/6.jpg"
+			imgSrc[2]="img/2.png"
+
 			
 			window.onload = function() { // initially, hide the div for later display
-					bg_num = Math.floor(Math.random() * 6);					
+					bg_num = Math.floor(Math.random() * imgSrc.length);					
+					if(bg_num == 3) bg_num = 2;
 					document.body.style.backgroundImage = "url('"+imgSrc[bg_num] +"')"; // change bg
 					document.getElementById('SQL_result').style.display = 'none';
 					document.getElementById('query_result').style.display = 'none';
