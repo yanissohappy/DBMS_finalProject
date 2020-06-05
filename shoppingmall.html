@@ -242,8 +242,8 @@
 							<form id="upload1" method="POST" onsubmit="return false;" align="center">
 								❤♥❤貼心提醒❤♥❤<br>
 								1.請務必每個格子都要填入<br>
-								2.不像SQL輸入(INSERT,DELETE,UPDATE)，此處的BUTTON都會顯示結果<br>
-								3.要小心duplicate項，必要時請輸入distinct<br>
+								2.不像SQL輸入(INSERT,DELETE,UPDATE)，透過此處的BUTTON進行query都會自動顯示結果<br>
+								3.做COUNT時要小心duplicate項，必要時請輸入distinct<br>
 								-------------------------------------------------------------------------------------<br>
 								<div id="D_HIDE"> </div>		
 								<div id="D_SELECT">
@@ -277,12 +277,12 @@
 										SELECT * FROM customer WHERE customer_name NOT IN (<input type="text" name="text10">) 
 								</div>		
 								<div id="D_EXISTS">
-										參考：SELECT * FROM customer WHERE EXISTS (SELECT * FROM merchandise,buy WHERE BUY.customer_id = CUSTOMER.customer_id and BUY.merchandise_id = MERCHANDISE.merchandise_id and merchandise_import_time = '2020-05-01')<br>
+										參考：SELECT * FROM customer WHERE EXISTS (SELECT * FROM merchandise,provide WHERE provide.customer_id = CUSTOMER.customer_id and provide.merchandise_id = MERCHANDISE.merchandise_id and merchandise_import_time = '2020-05-01')<br>
 										SELECT <input type="text" name="text11">
 										FROM customer WHERE EXISTS (<input type="text" name="text12">) 
 								</div>		
 								<div id="D_NOT_EXISTS">
-										參考：SELECT * FROM customer WHERE NOT EXISTS (SELECT * FROM merchandise,buy WHERE BUY.customer_id = CUSTOMER.customer_id and BUY.merchandise_id = MERCHANDISE.merchandise_id and merchandise_import_time = '2020-05-01')<br>
+										參考：SELECT * FROM customer WHERE NOT EXISTS (SELECT * FROM merchandise,provide WHERE provide.customer_id = CUSTOMER.customer_id and provide.merchandise_id = MERCHANDISE.merchandise_id and merchandise_import_time = '2020-05-01')<br>
 										SELECT <input type="text" name="text13">
 										FROM customer WHERE NOT EXISTS (<input type="text" name="text14">) 
 								</div>		

@@ -132,7 +132,7 @@ function is_select($query){ // 要split，判斷是否是SELECT(1), UPDATE, DELE
 	else return 0;
 }
 
-function is_multiple_query($query){ // 要split，判斷是否是SELECT(1), UPDATE, DELETE, INSERT
+function is_multiple_query($query){ // 要split，以有沒有";"判斷是不是多重query
 	$splitArray = explode (';', $query);
 	if((count($splitArray) > 1) && !empty($splitArray[1])) return 1; 
 	else return 0;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-05-29 05:04:10
+-- 產生時間： 2020-06-05 18:55:04
 -- 伺服器版本： 10.4.11-MariaDB
 -- PHP 版本： 7.4.5
 
@@ -52,53 +52,6 @@ INSERT INTO `agent` (`agent_id`, `agent_name`, `agent_address`, `agent_represent
 (10, '王道一二三文化事業有限公司', '台北市和平東路七段18號112樓之11', '徐志摩', 6000000),
 (11, '八點檔公司', '高雄市新興區隨便的路上', '陳阿一', 100000),
 (12, '是郭問號有限公司', '新北市郭譬區649號6樓', '郭譬寺', 94879487);
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `buy`
---
-
-CREATE TABLE `buy` (
-  `merchandise_id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- 傾印資料表的資料 `buy`
---
-
-INSERT INTO `buy` (`merchandise_id`, `customer_id`) VALUES
-(2, 2),
-(3, 1),
-(7, 3),
-(7, 10),
-(8, 5),
-(8, 10),
-(9, 2),
-(11, 5),
-(13, 4),
-(15, 2),
-(16, 3),
-(16, 9),
-(18, 14),
-(19, 4),
-(19, 11),
-(19, 14),
-(21, 6),
-(21, 9),
-(21, 10),
-(23, 7),
-(24, 8),
-(24, 11),
-(25, 4),
-(25, 8),
-(26, 13),
-(27, 7),
-(28, 4),
-(28, 12),
-(29, 11),
-(30, 5);
 
 -- --------------------------------------------------------
 
@@ -162,7 +115,9 @@ INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_email`, `custo
 (11, '不死川實彌', 'Shinazugawa@gmail.com', '嘉義市東區赤崁東街四段234巷812弄595號'),
 (12, '嘴平伊之助', 'Hashibira@gmail.com', '臺東縣金峰鄉松信一街八段301巷534弄548號'),
 (13, '鱗瀧左近次', 'Urokodaki@gmail.com', '屏東縣鹽埔鄉新基街828巷128號5樓'),
-(14, '不死川玄彌', 'Shinazugawa@gmail.com', '臺北市中山區東信路692巷9號');
+(14, '不死川玄彌', 'Shinazugawa@gmail.com', '臺北市中山區東信路692巷9號'),
+(15, '真菰', 'Tsuyuri@gmail.com', '高雄市前金區海港路15號'),
+(16, '真菰', 'Tsui@gmail.com', '高雄市前金區海路15號');
 
 -- --------------------------------------------------------
 
@@ -418,14 +373,6 @@ ALTER TABLE `agent`
   ADD PRIMARY KEY (`agent_id`);
 
 --
--- 資料表索引 `buy`
---
-ALTER TABLE `buy`
-  ADD PRIMARY KEY (`merchandise_id`,`customer_id`),
-  ADD KEY `merchandise_id` (`merchandise_id`),
-  ADD KEY `customer_id` (`customer_id`);
-
---
 -- 資料表索引 `conference`
 --
 ALTER TABLE `conference`
@@ -505,13 +452,6 @@ ALTER TABLE `original_manufacturer`
 --
 -- 已傾印資料表的限制式
 --
-
---
--- 資料表的限制式 `buy`
---
-ALTER TABLE `buy`
-  ADD CONSTRAINT `buy_ibfk_1` FOREIGN KEY (`merchandise_id`) REFERENCES `merchandise` (`merchandise_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `buy_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 資料表的限制式 `conference`
