@@ -15,6 +15,8 @@ if ($conn->connect_error) {
 }
 echo "<span class=\"span_show_blue\">" . "成功連結資料庫！" . "</span><br>";
 
+$conn->query("SET NAMES UTF8");
+
 // SQL 輸入結果
 if(!empty($_POST['inputSQL'])){
 	echo "<span class=\"span_show\"> 您輸入的指令 " . @$_POST['inputSQL'] . "</span>";
